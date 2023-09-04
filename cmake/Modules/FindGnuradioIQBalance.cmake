@@ -19,9 +19,9 @@ FIND_LIBRARY(
         ${CMAKE_INSTALL_PREFIX}/lib64
         ${CMAKE_INSTALL_PREFIX}/lib
     PATHS /usr/local/lib
-          /usr/local/lib64
+          /usr/local/x86_64-linux-gnu
           /usr/lib
-          /usr/lib64
+          /usr/lib/x86_64-linux-gnu
 )
 
 INCLUDE(FindPackageHandleStandardArgs)

@@ -16,7 +16,7 @@ FIND_LIBRARY(
     HINTS $ENV{GNURADIO_IIO_DIR}/lib
         ${PC_GNURADIO_IIO_LIBDIR}
     PATHS /usr/local/lib
-          /usr/local/lib/x86_64-linux-gnu
+          /usr/local/x86_64-linux-gnu
           /usr/lib
           /usr/lib/x86_64-linux-gnu
 )
