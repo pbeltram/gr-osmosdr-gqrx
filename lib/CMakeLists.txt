@@ -43,6 +43,8 @@ GR_OSMOSDR_APPEND_SRCS(
     time_spec.cc
 )
 
+set(CMAKE_CXX_STANDARD 11)
+
 #-pthread Adds support for multithreading with the pthreads library.
 #This option sets flags for both the preprocessor and linker. (man gcc)
 if(CMAKE_COMPILER_IS_GNUCXX)
@@ -132,21 +134,6 @@ GR_REGISTER_COMPONENT("sysmocom OsmoSDR" ENABLE_OSMOSDR LIBOSMOSDR_FOUND)
 if(ENABLE_OSMOSDR)
 GR_INCLUDE_SUBDIRECTORY(osmosdr)
 endif(ENABLE_OSMOSDR)
-
-########################################################################
-# Setup FCD component
-########################################################################
-GR_REGISTER_COMPONENT("FUNcube Dongle" ENABLE_FCD GNURADIO_FCD_FOUND)
-GR_REGISTER_COMPONENT("FUNcube Dongle Pro+" ENABLE_FCDPP GNURADIO_FCDPP_FOUND)
-if(ENABLE_FCD)
-add_definitions(-DHAVE_FCD=1)
-endif(ENABLE_FCD)
-if(ENABLE_FCDPP)
-add_definitions(-DHAVE_FCDPP=1)
-endif(ENABLE_FCDPP)
-if(ENABLE_FCD OR ENABLE_FCDPP)
-GR_INCLUDE_SUBDIRECTORY(fcd)
-endif(ENABLE_FCD OR ENABLE_FCDPP)
 
 ########################################################################
 # Setup File component

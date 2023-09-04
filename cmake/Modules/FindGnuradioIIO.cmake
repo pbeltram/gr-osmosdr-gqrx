@@ -3,7 +3,7 @@ PKG_CHECK_MODULES(PC_GNURADIO_IIO gnuradio-iio)
 
 FIND_PATH(
     GNURADIO_IIO_INCLUDE_DIRS
-    NAMES gnuradio/iio/api.h
+    NAMES iio/api.h
     HINTS $ENV{GNURADIO_IIO_DIR}/include
         ${PC_GNURADIO_IIO_INCLUDEDIR}
     PATHS /usr/local/include
@@ -16,9 +16,9 @@ FIND_LIBRARY(
     HINTS $ENV{GNURADIO_IIO_DIR}/lib
         ${PC_GNURADIO_IIO_LIBDIR}
     PATHS /usr/local/lib
-          /usr/local/lib64
+          /usr/local/lib/x86_64-linux-gnu
           /usr/lib
-          /usr/lib64
+          /usr/lib/x86_64-linux-gnu
 )
 
 if(GNURADIO_IIO_INCLUDE_DIRS AND GNURADIO_IIO_LIBRARIES)

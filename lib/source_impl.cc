@@ -198,6 +198,19 @@ source_impl::source_impl( const std::string &args )
     }
   }
 
+  bool force_arg = false;
+  int force_val = 0;
+
+  if (arg_list.size() <= 2) {
+     BOOST_FOREACH(std::string arg, arg_list) {
+       if ( arg.find( "numchan=" ) == 0 ) {
+         pair_t pair = param_to_pair( arg );
+         force_arg = true;
+         force_val = boost::lexical_cast<size_t>( pair.second );
+       }
+     }
+  }
+
   if ( ! device_specified ) {
     std::vector< std::string > dev_list;
 #ifdef ENABLE_OSMOSDR
@@ -268,6 +281,9 @@ source_impl::source_impl( const std::string &args )
   }
 
   BOOST_FOREACH(std::string arg, arg_list) {
+
+    if(force_arg)
+       arg += ",nchan=" + std::to_string(force_val);
 
     dict_t dict = params_to_dict(arg);
 
@@ -421,6 +437,13 @@ source_impl::source_impl( const std::string &args )
 
   if (!_devs.size())
     throw std::runtime_error("No devices specified via device arguments.");
+
+  /* Populate the _gain and _gain_mode arrays with the hardware state */
+  BOOST_FOREACH( source_iface *dev, _devs )
+    for (size_t dev_chan = 0; dev_chan < dev->get_num_channels(); dev_chan++) {
+      _gain_mode[dev_chan] = dev->get_gain_mode(dev_chan);
+      _gain[dev_chan] = dev->get_gain(dev_chan);
+    }
 }
 
 size_t source_impl::get_num_channels()

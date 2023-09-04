@@ -230,11 +230,9 @@ bool bladerf_source_c::start()
 
   for (size_t ch = 0; ch < get_max_channels(); ++ch) {
     bladerf_channel brfch = BLADERF_CHANNEL_RX(ch);
-    if (get_channel_enable(brfch)) {
-      status = bladerf_enable_module(_dev.get(), brfch, true);
-      if (status != 0) {
-        BLADERF_THROW_STATUS(status, "bladerf_enable_module failed");
-      }
+    status = bladerf_enable_module(_dev.get(), brfch, get_channel_enable(brfch));
+    if (status != 0) {
+      BLADERF_THROW_STATUS(status, "bladerf_enable_module failed");
     }
   }
 
@@ -344,7 +342,7 @@ int bladerf_source_c::work(int noutput_items,
     memcpy(out[0], _32fcbuf, sizeof(gr_complex) * noutput_items);
   }
 
-  return noutput_items;
+  return noutput_items/(get_num_channels());
 }
 
 osmosdr::meta_range_t bladerf_source_c::get_sample_rates()
