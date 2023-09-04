@@ -6,8 +6,9 @@ FIND_PATH(
     NAMES libhackrf/hackrf.h
     HINTS $ENV{LIBHACKRF_DIR}/include
         ${PC_LIBHACKRF_INCLUDEDIR}
-    PATHS /usr/local/include
-          /usr/include
+    PATHS
+    /usr/include
+    /usr/local/include
 )
 
 FIND_LIBRARY(
@@ -15,8 +16,12 @@ FIND_LIBRARY(
     NAMES hackrf
     HINTS $ENV{LIBHACKRF_DIR}/lib
         ${PC_LIBHACKRF_LIBDIR}
-    PATHS /usr/local/lib
-          /usr/lib
+    PATHS
+    ${LIBFREESRP_PKG_LIBRARY_DIRS}
+    /usr/local/lib
+    /usr/local/lib/x86_64-linux-gnu
+    /usr/lib
+    /usr/lib/x86_64-linux-gnu
 )
 
 INCLUDE(FindPackageHandleStandardArgs)

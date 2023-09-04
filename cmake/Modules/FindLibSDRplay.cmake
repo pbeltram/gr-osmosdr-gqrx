@@ -10,8 +10,10 @@ if(NOT LIBSDRPLAY_FOUND)
   find_library(LIBSDRPLAY_LIBRARIES NAMES mirsdrapi-rsp
     PATHS
     ${LIBSDRPLAY_PKG_LIBRARY_DIRS}
-    /usr/lib
     /usr/local/lib
+    /usr/local/lib/x86_64-linux-gnu
+    /usr/lib
+    /usr/lib/x86_64-linux-gnu
   )
 
 if(LIBSDRPLAY_INCLUDE_DIRS AND LIBSDRPLAY_LIBRARIES)

@@ -10,8 +10,10 @@ if(NOT LIBFREESRP_FOUND)
   find_library(LIBFREESRP_LIBRARIES NAMES freesrp
     PATHS
     ${LIBFREESRP_PKG_LIBRARY_DIRS}
-    /usr/lib
     /usr/local/lib
+    /usr/local/lib/x86_64-linux-gnu
+    /usr/lib
+    /usr/lib/x86_64-linux-gnu
   )
 
 if(LIBFREESRP_INCLUDE_DIRS AND LIBFREESRP_LIBRARIES)

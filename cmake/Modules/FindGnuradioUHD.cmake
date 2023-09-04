@@ -3,7 +3,7 @@ PKG_CHECK_MODULES(PC_GNURADIO_UHD gnuradio-uhd)
 
 FIND_PATH(
     GNURADIO_UHD_INCLUDE_DIRS
-    NAMES gnuradio/uhd/api.h
+    NAMES uhd/api.h
     HINTS $ENV{GNURADIO_UHD_DIR}/include
         ${PC_GNURADIO_UHD_INCLUDEDIR}
     PATHS /usr/local/include
@@ -16,9 +16,9 @@ FIND_LIBRARY(
     HINTS $ENV{GNURADIO_UHD_DIR}/lib
         ${PC_GNURADIO_UHD_LIBDIR}
     PATHS /usr/local/lib
-          /usr/local/lib64
+          /usr/local/lib/x86_64-linux-gnu
           /usr/lib
-          /usr/lib64
+          /usr/lib/x86_64-linux-gnu
 )
 
 if(GNURADIO_UHD_INCLUDE_DIRS AND GNURADIO_UHD_LIBRARIES)

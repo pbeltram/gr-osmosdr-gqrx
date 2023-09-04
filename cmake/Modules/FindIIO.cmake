@@ -1,38 +1,29 @@
-########################################################################
-# Find the IIO userspace library
-########################################################################
+if(NOT LIBIIO_FOUND)
+  pkg_check_modules (LIBIIO_PKG libiio)
+  find_path(LIBIIO_INCLUDE_DIRS NAMES iio.h
+    PATHS
+    ${LIBIIO_PKG_INCLUDE_DIRS}
+    /usr/include
+    /usr/local/include
+  )
 
-INCLUDE(FindPkgConfig)
-PKG_CHECK_MODULES(PC_IIO iio)
+  find_library(LIBIIO_LIBRARIES NAMES iio
+    PATHS
+    ${LIBIIO_PKG_LIBRARY_DIRS}
+    /usr/local/lib
+    /usr/local/lib/x86_64-linux-gnu
+    /usr/lib
+    /usr/lib/x86_64-linux-gnu
+  )
 
-FIND_PATH(
-    IIO_INCLUDE_DIRS
-    NAMES iio.h
-    HINTS $ENV{IIO_DIR}/include
-        ${PC_IIO_INCLUDEDIR}
-    PATHS /usr/local/include
-          /usr/include
-)
+if(LIBIIO_INCLUDE_DIRS AND LIBIIO_LIBRARIES)
+  set(LIBIIO_FOUND TRUE CACHE INTERNAL "libiio found")
+  message(STATUS "Found libiio: ${LIBIIO_INCLUDE_DIRS}, ${LIBIIO_LIBRARIES}")
+else(LIBIIO_INCLUDE_DIRS AND LIBIIO_LIBRARIES)
+  set(LIBIIO_FOUND FALSE CACHE INTERNAL "libiio found")
+  message(STATUS "libiio not found.")
+endif(LIBIIO_INCLUDE_DIRS AND LIBIIO_LIBRARIES)
 
-FIND_LIBRARY(
-    IIO_LIBRARIES
-    NAMES iio
-    HINTS $ENV{IIO_DIR}/lib
-        ${PC_IIO_LIBDIR}
-    PATHS /usr/local/lib
-          /usr/local/lib/x86_64-linux-gnu
-          /usr/lib
-          /usr/lib/x86_64-linux-gnu
-)
+mark_as_advanced(LIBIIO_LIBRARIES LIBIIO_INCLUDE_DIRS)
 
-if(IIO_INCLUDE_DIRS AND IIO_LIBRARIES)
-  set(IIO_FOUND TRUE CACHE INTERNAL "iio found")
-  message(STATUS "Found iio: ${IIO_INCLUDE_DIRS}, ${IIO_LIBRARIES}")
-else(IIO_INCLUDE_DIRS AND IIO_LIBRARIES)
-  set(IIO_FOUND FALSE CACHE INTERNAL "iio found")
-  message(STATUS "iio not found.")
-endif(IIO_INCLUDE_DIRS AND IIO_LIBRARIES)
-
-INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(IIO DEFAULT_MSG IIO_LIBRARIES IIO_INCLUDE_DIRS)
-MARK_AS_ADVANCED(IIO_LIBRARIES IIO_INCLUDE_DIRS)
+endif(NOT LIBIIO_FOUND)

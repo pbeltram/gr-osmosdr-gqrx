@@ -10,8 +10,9 @@ FIND_PATH(
     NAMES uhd/config.hpp
     HINTS $ENV{UHD_DIR}/include
         ${PC_UHD_INCLUDEDIR}
-    PATHS /usr/local/include
-          /usr/include
+    PATHS
+    /usr/include
+    /usr/local/include
 )
 
 FIND_LIBRARY(
@@ -19,8 +20,11 @@ FIND_LIBRARY(
     NAMES uhd
     HINTS $ENV{UHD_DIR}/lib
         ${PC_UHD_LIBDIR}
-    PATHS /usr/local/lib
-          /usr/lib
+    PATHS
+    /usr/local/lib
+    /usr/local/lib/x86_64-linux-gnu
+    /usr/lib
+    /usr/lib/x86_64-linux-gnu
 )
 
 INCLUDE(FindPackageHandleStandardArgs)

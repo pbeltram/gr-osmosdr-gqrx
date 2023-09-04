@@ -10,8 +10,10 @@ if(NOT LIBRTLSDR_FOUND)
   find_library(LIBRTLSDR_LIBRARIES NAMES rtlsdr
     PATHS
     ${LIBRTLSDR_PKG_LIBRARY_DIRS}
-    /usr/lib
     /usr/local/lib
+    /usr/local/lib/x86_64-linux-gnu
+    /usr/lib
+    /usr/lib/x86_64-linux-gnu
   )
 
 if(LIBRTLSDR_INCLUDE_DIRS AND LIBRTLSDR_LIBRARIES)

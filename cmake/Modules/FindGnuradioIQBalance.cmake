@@ -19,10 +19,18 @@ FIND_LIBRARY(
         ${CMAKE_INSTALL_PREFIX}/lib64
         ${CMAKE_INSTALL_PREFIX}/lib
     PATHS /usr/local/lib
-          /usr/local/x86_64-linux-gnu
+          /usr/local/lib/x86_64-linux-gnu
           /usr/lib
           /usr/lib/x86_64-linux-gnu
 )
+
+if(GNURADIO_IQBALANCE_INCLUDE_DIRS AND GNURADIO_IQBALANCE_LIBRARIES)
+  set(gnuradio-iqbalance_FOUND TRUE CACHE INTERNAL "gnuradio-iqbalance found")
+  message(STATUS "Found gnuradio-iqbalance: ${GNURADIO_IQBALANCE_INCLUDE_DIRS}, ${GNURADIO_IQBALANCE_LIBRARIES}")
+else(GNURADIO_IQBALANCE_INCLUDE_DIRS AND GNURADIO_IQBALANCE_LIBRARIES)
+  set(gnuradio-iqbalance_FOUND FALSE CACHE INTERNAL "gnuradio-iqbalance found")
+  message(STATUS "gnuradio-iqbalance not found.")
+endif(GNURADIO_IQBALANCE_INCLUDE_DIRS AND GNURADIO_IQBALANCE_LIBRARIES)
 
 INCLUDE(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(GNURADIO_IQBALANCE DEFAULT_MSG GNURADIO_IQBALANCE_LIBRARIES GNURADIO_IQBALANCE_INCLUDE_DIRS)

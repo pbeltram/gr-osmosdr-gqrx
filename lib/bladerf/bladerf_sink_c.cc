@@ -96,7 +96,7 @@ bladerf_sink_c::bladerf_sink_c(const std::string &args) :
   }
 
   /* Initialize channel <-> antenna map */
-  BOOST_FOREACH(std::string ant, get_antennas()) {
+  for (std::string ant : get_antennas()) {
     _chanmap[str2channel(ant)] = -1;
   }
 
@@ -174,9 +174,11 @@ bool bladerf_sink_c::start()
 
   for (size_t ch = 0; ch < get_max_channels(); ++ch) {
     bladerf_channel brfch = BLADERF_CHANNEL_TX(ch);
-    status = bladerf_enable_module(_dev.get(), brfch, get_channel_enable(brfch));
-    if (status != 0) {
-      BLADERF_THROW_STATUS(status, "bladerf_enable_module failed");
+    if (get_channel_enable(brfch)) {
+      status = bladerf_enable_module(_dev.get(), brfch, true);
+      if (status != 0) {
+        BLADERF_THROW_STATUS(status, "bladerf_enable_module failed");
+      }
     }
   }
 
@@ -208,9 +210,11 @@ bool bladerf_sink_c::stop()
 
   for (size_t ch = 0; ch < get_max_channels(); ++ch) {
     bladerf_channel brfch = BLADERF_CHANNEL_TX(ch);
-    status = bladerf_enable_module(_dev.get(), brfch, get_channel_enable(brfch));
-    if (status != 0) {
-      BLADERF_THROW_STATUS(status, "bladerf_enable_module failed");
+    if (get_channel_enable(brfch)) {
+      status = bladerf_enable_module(_dev.get(), brfch, false);
+      if (status != 0) {
+        BLADERF_THROW_STATUS(status, "bladerf_enable_module failed");
+      }
     }
   }
 
@@ -234,11 +238,6 @@ int bladerf_sink_c::work(int noutput_items,
 
   // if we aren't running, nothing to do here
   if (!_running) {
-    return 0;
-  }
-
-  noutput_items &= ~(3ULL);
-  if (!noutput_items) {
     return 0;
   }
 
@@ -330,7 +329,7 @@ int bladerf_sink_c::transmit_with_tags(int16_t const *samples,
     }
   }
 
-  BOOST_FOREACH(gr::tag_t tag, tags) {
+  for (gr::tag_t tag : tags) {
     // Upon seeing an SOB tag, update our offset. We'll TX the start of the
     // burst when we see an EOB or at the end of this function - whichever
     // occurs first.

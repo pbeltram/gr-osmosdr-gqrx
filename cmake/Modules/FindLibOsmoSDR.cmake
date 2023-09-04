@@ -10,8 +10,10 @@ if(NOT LIBOSMOSDR_FOUND)
   find_library(LIBOSMOSDR_LIBRARIES NAMES osmosdr
     PATHS
     ${LIBOSMOSDR_PKG_LIBRARY_DIRS}
-    /usr/lib
     /usr/local/lib
+    /usr/local/lib/x86_64-linux-gnu
+    /usr/lib
+    /usr/lib/x86_64-linux-gnu
   )
 
 if(LIBOSMOSDR_INCLUDE_DIRS AND LIBOSMOSDR_LIBRARIES)

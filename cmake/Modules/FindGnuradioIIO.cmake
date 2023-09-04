@@ -16,16 +16,16 @@ FIND_LIBRARY(
     HINTS $ENV{GNURADIO_IIO_DIR}/lib
         ${PC_GNURADIO_IIO_LIBDIR}
     PATHS /usr/local/lib
-          /usr/local/x86_64-linux-gnu
+          /usr/local/lib/x86_64-linux-gnu
           /usr/lib
           /usr/lib/x86_64-linux-gnu
 )
 
 if(GNURADIO_IIO_INCLUDE_DIRS AND GNURADIO_IIO_LIBRARIES)
-  set(GNURADIO_IIO_FOUND TRUE CACHE INTERNAL "gnuradio-iio found")
+  set(gnuradio-iio_FOUND TRUE CACHE INTERNAL "gnuradio-iio found")
   message(STATUS "Found gnuradio-iio: ${GNURADIO_IIO_INCLUDE_DIRS}, ${GNURADIO_IIO_LIBRARIES}")
 else(GNURADIO_IIO_INCLUDE_DIRS AND GNURADIO_IIO_LIBRARIES)
-  set(GNURADIO_IIO_FOUND FALSE CACHE INTERNAL "gnuradio-iio found")
+  set(gnuradio-iio_FOUND FALSE CACHE INTERNAL "gnuradio-iio found")
   message(STATUS "gnuradio-iio not found.")
 endif(GNURADIO_IIO_INCLUDE_DIRS AND GNURADIO_IIO_LIBRARIES)
 

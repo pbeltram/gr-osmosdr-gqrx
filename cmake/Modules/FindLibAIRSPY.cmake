@@ -16,7 +16,9 @@ FIND_LIBRARY(
     HINTS $ENV{LIBAIRSPY_DIR}/lib
         ${PC_LIBAIRSPY_LIBDIR}
     PATHS /usr/local/lib
+          /usr/local/lib/x86_64-linux-gnu
           /usr/lib
+          /usr/lib/x86_64-linux-gnu
 )
 
 INCLUDE(FindPackageHandleStandardArgs)
